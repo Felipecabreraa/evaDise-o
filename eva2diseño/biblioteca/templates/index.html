@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block titulo%} Inicio {% endblock%}
+
+
+{% block contenido%}  
+
+Seccion de Inicio
+
+
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{%url 'crear'%}" role="button">Agregar nuevo libro</a>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Libros</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">TITULO</th>
+                        <th scope="col">IMAGEN</th>
+                        <th scope="col">DESCRIPCION</th>
+                        <th scope="col">ACCIONES</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for libro in libros%}
+                    <tr class="">
+                        <td>{{libro.id}}</td>
+                        <td>{{libro.titulo}} </td>
+                        <td>
+                         <img src="{{libro.imagen.url}}" height="100"/>   
+                            
+                            
+
+                        </td>
+                        <td>{{libro.descripcion}}</td>
+                        <td>
+                            <a name="" id="" class="btn btn-info" href="{% url 'editar' libro.id %}" role="button">Editar</a>
+                            |
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar' libro.id %}" role="button">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %%}
+                </tbody>
+            </table>
+        </div>
+        
+
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+</div>
+
+
+{% endblock %}

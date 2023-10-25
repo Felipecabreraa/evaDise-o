@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+  INICIO
+{% endblock %}
+
+{% block contenido %}
+  <!-- Cabecera con imagen de fondo -->
+  <header class="bg-primary text-white text-center py-5">
+    <div class="container">
+      <h1 class="display-4">Biblioteca Municipal</h1>
+      <p class="lead">Tu fuente de conocimiento e inspiración</p>
+      <a href="{% url 'index' %}" class="btn btn-light btn-lg">Explorar Libros</a>
+    </div>
+  </header>
+
+  <!-- Sección de Destacados -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Descubre Nuestras Novedades</h2>
+          <p>Explora nuestra colección de libros recientemente añadidos a la biblioteca. Encuentra las últimas tendencias y novedades literarias.</p>
+          <a href="{% url 'index' %}" class="btn btn-primary">Ver Novedades</a>
+        </div>
+        <div class="col-lg-6">
+          <!-- Carrusel de Imágenes de Libros Destacados -->
+          <div id="librosDestacadosCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="{% static 'img2.jpg' %}" class="d-block img-fluid" alt="Libro 1" />
+              </div>
+              <div class="carousel-item ">
+                <img src="{% static 'img1.png' %}" class="d-block img-fluid" alt="Libro 2" />
+              </div>
+              <div class="carousel-item ">
+                <img src="{% static 'img3.png' %}" class="d-block img-fluid" alt="Libro 3" />
+              </div>
+              <!-- Agrega más imágenes de libros destacados aquí -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#librosDestacadosCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#librosDestacadosCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Noticias -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2>Noticias y Eventos</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="{% static 'noticia1.jpg' %}" class="card-img-top" alt="Noticia 1" />
+            <div class="card-body">
+              <h5 class="card-title">Bibliometro y la BPDigital junto al Plan de la Lectura participan en la programación cultural de Santiago 2023</h5>
+              <p class="card-text">Los programas del Sistema Nacional de Bibliotecas Públicas cuentan con un espacio en el Pabellón Cultural del Estadio Nacional, en el marco de la fiesta deportiva que se realiza entre el 23 de octubre y el 26 de noviembre.</p>
+              <a href="https://www.bibliotecaspublicas.gob.cl/noticias/bibliometro-y-la-bpdigital-junto-al-plan-de-la-lectura-participan-en-la-programacion" class="btn btn-primary" target="_blank">Leer Más</a>            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="{% static 'noticia2.jpeg' %}" class="card-img-top" alt="Noticia 2" />
+            <div class="card-body">
+              <h5 class="card-title">Nueva Biblioteca de Cabrero apuesta por una comunidad comprometida con la lectura</h5>
+              <p class="card-text">Este viernes 6 de octubre, la Biblioteca Pública de Cabrero Manuel Zañartu abrió sus puertas a toda la comunidad en una celebración que contó con presentaciones de artistas locales y regionales, como la banda Asteroide y la poeta Miriam Leiva.</p>
+              <a href="https://www.bibliotecaspublicas.gob.cl/noticias/nueva-biblioteca-de-cabrero-apuesta-por-una-comunidad-comprometida-con-la-lectura" class="btn btn-primary">Leer Más</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="{% static 'noticia3.png' %}" class="card-img-top" alt="Noticia 3" />
+            <div class="card-body">
+              <h5 class="card-title">Bibliotecas Públicas invitan a la segunda edición del encuentro nacional «Sumemos comunidad» 2023</h5>
+              <p class="card-text">El próximo 7 de noviembre se dará inicio a la nueva versión de este evento que contará con la participación de destacados exponentes nacionales e internacionales y se centrará en promover el fomento lector como un componente esencial en la labor de las bibliotecas públicas.</p>
+              <a href="#" class="btn btn-primary">Leer Más</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="#" class="btn btn-primary">Ver Todas las Noticias</a>
+    </div>
+  </section>
+
+  <!-- Sección de Horarios y Ubicación -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Horarios de Apertura</h2>
+          <p>Estamos abiertos de lunes a viernes de 9:00 AM a 7:00 PM y los sábados de 10:00 AM a 5:00 PM. ¡Esperamos verte pronto!</p>
+        </div>
+        <div class="col-md-6">
+          <h2>Ubicación</h2>
+          <p>Estamos ubicados en [Dirección de tu Biblioteca]. Ven a visitarnos y explora nuestra colección de libros.</p>
+          <a href="#mapa">Ver en el Mapa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Eventos y Programas -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2>Eventos y Programas</h2>
+      <!-- Aquí puedes listar eventos y programas próximos con imágenes y enlaces. -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="{% static 'evento1.jpg' %}" class="card-img-top" alt="Evento 1" />
+            <div class="card-body">
+              <h5 class="card-title">Título del Evento 1</h5>
+              <p class="card-text">Breve descripción del evento 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <a href="#" class="btn btn-primary">Más Información</a>
+            </div>
+          </div>
+        </div>
+        <!-- Repite esta estructura para más eventos y programas -->
+      </div>
+      <a href="#" class="btn btn-primary">Ver Todos los Eventos</a>
+    </div>
+  </section>
+
+  <!-- Sección de Recursos en Línea -->
+  <section class="py-5">
+    <div class="container">
+      <h2>Recursos en Línea</h2>
+      <p>Explora nuestros recursos en línea, que incluyen libros electrónicos, revistas digitales, bases de datos y más.</p>
+      <a href="#" class="btn btn-primary">Ver Recursos</a>
+    </div>
+  </section>
+
+  <!-- Sección de Galería de Imágenes -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2>Galería de Imágenes</h2>
+      <!-- Aquí puedes agregar una galería de imágenes de eventos pasados y actividades de la biblioteca. -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <img src="{% static 'galeria1.jpg' %}" class="card-img-top" alt="Galería 1" />
+          </div>
+        </div>
+        <!-- Repite esta estructura para más imágenes en la galería -->
+      </div>
+    </div>
+  </section>
+{% endblock %}
