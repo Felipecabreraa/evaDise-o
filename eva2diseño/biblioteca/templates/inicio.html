@@ -31,10 +31,10 @@
               <div class="carousel-item active">
                 <img src="{% static 'img2.jpg' %}" class="d-block img-fluid" alt="Libro 1" />
               </div>
-              <div class="carousel-item ">
+              <div class="carousel-item">
                 <img src="{% static 'img1.png' %}" class="d-block img-fluid" alt="Libro 2" />
               </div>
-              <div class="carousel-item ">
+              <div class="carousel-item">
                 <img src="{% static 'img3.png' %}" class="d-block img-fluid" alt="Libro 3" />
               </div>
               <!-- Agrega más imágenes de libros destacados aquí -->
@@ -60,36 +60,45 @@
       <div class="row">
         <div class="col-md-4">
           <div class="card mb-4">
-            <img src="{% static 'noticia1.jpg' %}" class="card-img-top" alt="Noticia 1" />
+            <a href="https://www.bibliotecaspublicas.gob.cl/noticias/bibliometro-y-la-bpdigital-junto-al-plan-de-la-lectura-participan-en-la-programacion">
+              <img src="{% static 'noticia1.jpg' %}" class="card-img-top" alt="Noticia 1" />
+            </a>
             <div class="card-body">
               <h5 class="card-title">Bibliometro y la BPDigital junto al Plan de la Lectura participan en la programación cultural de Santiago 2023</h5>
               <p class="card-text">Los programas del Sistema Nacional de Bibliotecas Públicas cuentan con un espacio en el Pabellón Cultural del Estadio Nacional, en el marco de la fiesta deportiva que se realiza entre el 23 de octubre y el 26 de noviembre.</p>
-              <a href="https://www.bibliotecaspublicas.gob.cl/noticias/bibliometro-y-la-bpdigital-junto-al-plan-de-la-lectura-participan-en-la-programacion" class="btn btn-primary" target="_blank">Leer Más</a>            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img src="{% static 'noticia2.jpeg' %}" class="card-img-top" alt="Noticia 2" />
-            <div class="card-body">
-              <h5 class="card-title">Nueva Biblioteca de Cabrero apuesta por una comunidad comprometida con la lectura</h5>
-              <p class="card-text">Este viernes 6 de octubre, la Biblioteca Pública de Cabrero Manuel Zañartu abrió sus puertas a toda la comunidad en una celebración que contó con presentaciones de artistas locales y regionales, como la banda Asteroide y la poeta Miriam Leiva.</p>
-              <a href="https://www.bibliotecaspublicas.gob.cl/noticias/nueva-biblioteca-de-cabrero-apuesta-por-una-comunidad-comprometida-con-la-lectura" class="btn btn-primary">Leer Más</a>
             </div>
           </div>
         </div>
+
+
         <div class="col-md-4">
           <div class="card mb-4">
-            <img src="{% static 'noticia3.png' %}" class="card-img-top" alt="Noticia 3" />
+            <a href="https://www.bibliotecaspublicas.gob.cl/noticias/nueva-biblioteca-de-cabrero-apuesta-por-una-comunidad-comprometida-con-la-lectura">
+              <img src="{% static 'noticia2.jpeg' %}" class="card-img-top" alt="Noticia 2" />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Nueva Biblioteca de Cabrero apuesta por una comunidad comprometida con la lectura</h5>
+              <p class="card-text">Este viernes 6 de octubre, la Biblioteca Pública de Cabrero Manuel Zañartu abrió sus puertas a toda la comunidad en una celebración que contó con presentaciones de artistas locales y regionales, como la banda Asteroide y la poeta Miriam Leiva.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <a href="https://www.bibliotecaspublicas.gob.cl/noticias/bibliotecas-publicas-invitan-la-segunda-edicion-del-encuentro-nacional-sumemos-comunidad">
+              <img src="{% static 'noticia3.png' %}" class="card-img-top" alt="Noticia 3" />
+            </a>
             <div class="card-body">
               <h5 class="card-title">Bibliotecas Públicas invitan a la segunda edición del encuentro nacional «Sumemos comunidad» 2023</h5>
               <p class="card-text">El próximo 7 de noviembre se dará inicio a la nueva versión de este evento que contará con la participación de destacados exponentes nacionales e internacionales y se centrará en promover el fomento lector como un componente esencial en la labor de las bibliotecas públicas.</p>
-              <a href="#" class="btn btn-primary">Leer Más</a>
             </div>
           </div>
         </div>
       </div>
-      <a href="#" class="btn btn-primary">Ver Todas las Noticias</a>
-    </div>
+
+      <div class="container text-center">
+        <a href="https://www.bibliotecaspublicas.gob.cl/noticias" class="btn btn-primary">Ver Todos las Noticias</a>
+      </div>
   </section>
 
   <!-- Sección de Horarios y Ubicación -->
@@ -102,8 +111,14 @@
         </div>
         <div class="col-md-6">
           <h2>Ubicación</h2>
-          <p>Estamos ubicados en [Dirección de tu Biblioteca]. Ven a visitarnos y explora nuestra colección de libros.</p>
-          <a href="#mapa">Ver en el Mapa</a>
+          <a href="https://www.google.com/maps/place/Biblioteca+Nacional+de+Chile/@-33.4414467,-70.6465732,18.5z/data=!4m6!3m5!1s0x9662c4f89e375973:0xb2fc7ff31b0ff97c!8m2!3d-33.4416504!4d-70.6458011!16s%2Fm%2F02vkslx?entry=ttu">
+            <img src="{% static 'maps.png' %}" class="card-img-top" alt="Ubicacion" />
+          </a>
+          <p>Av. Libertador Bernardo O'Higgins 651, Santiago.</p>
+          
+          <div class="container text-center">
+            <a href="https://www.google.com/maps/place/Biblioteca+Nacional+de+Chile/@-33.4414467,-70.6465732,18.5z/data=!4m6!3m5!1s0x9662c4f89e375973:0xb2fc7ff31b0ff97c!8m2!3d-33.4416504!4d-70.6458011!16s%2Fm%2F02vkslx?entry=ttu">Ver en el Mapa</a>
+          </div>
         </div>
       </div>
     </div>
@@ -113,21 +128,49 @@
   <section class="bg-light py-5">
     <div class="container">
       <h2>Eventos y Programas</h2>
-      <!-- Aquí puedes listar eventos y programas próximos con imágenes y enlaces. -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col mb-4">
           <div class="card mb-4">
-            <img src="{% static 'evento1.jpg' %}" class="card-img-top" alt="Evento 1" />
+            <a href="https://www.bibliotecanacional.gob.cl/cartelera/inventario-fotolibros-y-otras-visualidades-desde-el-73-hasta-hoy" >
+              <img src="{% static 'evento2.jpeg' %}" class="card-img-top" alt="Evento 2" />
+            </a>
             <div class="card-body">
-              <h5 class="card-title">Título del Evento 1</h5>
-              <p class="card-text">Breve descripción del evento 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              <a href="#" class="btn btn-primary">Más Información</a>
+              <h5 class="card-title">Fotografía | Exposición.</h5>
+              <p class="card-text">“Inventario: Fotolibros y otras visualidades desde el 73 hasta hoy”.</p>
             </div>
           </div>
         </div>
-        <!-- Repite esta estructura para más eventos y programas -->
+
+        <div class="col mb-4">
+          <div class="card mb-4">
+            <a href="https://fau.uchile.cl/agenda/209492/exhibicion-generaciones-ilustradas">
+              <img src="{% static 'evento1.png' %}" class="card-img-top" alt="Evento 1" />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Conferencias y seminarios.</h5>
+              <p class="card-text">Exhibición: "Generaciones Ilustradas: exhibición y revisita de portadas originales de la colección Cuncuna de la Empresa Editora Nacional QUIMANTÚ.</p>
+
+            </div>
+          </div>
+        </div>
+        
+
+
+        <div class="col mb-4">
+          <div class="card mb-4">
+            <a href="https://www.bibliotecanacional.gob.cl/cartelera/haciendo-memoria-fuentes-para-mirar-al-futuro" >
+              <img src="{% static 'evento3.png' %}" class="card-img-top" alt="Evento 3" />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Exposición.</h5>
+              <p class="card-text">“Haciendo memoria: fuentes para mirar al futuro”.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <a href="#" class="btn btn-primary">Ver Todos los Eventos</a>
+      <div class="container text-center">
+        <a href="#" class="btn btn-primary">Ver Todos los Eventos</a>
+      </div>
     </div>
   </section>
 
@@ -136,23 +179,74 @@
     <div class="container">
       <h2>Recursos en Línea</h2>
       <p>Explora nuestros recursos en línea, que incluyen libros electrónicos, revistas digitales, bases de datos y más.</p>
-      <a href="#" class="btn btn-primary">Ver Recursos</a>
+      <div class="container text-center">
+        <a href="#" class="btn btn-primary">Ver Recursos</a>
+      </div>
+
     </div>
   </section>
 
-  <!-- Sección de Galería de Imágenes -->
-  <section class="bg-light py-5">
-    <div class="container">
-      <h2>Galería de Imágenes</h2>
-      <!-- Aquí puedes agregar una galería de imágenes de eventos pasados y actividades de la biblioteca. -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img src="{% static 'galeria1.jpg' %}" class="card-img-top" alt="Galería 1" />
+<!-- Sección de Galería de Imágenes -->
+<section class="bg-light py-5">
+  <div class="container">
+    <h2>Galería de Imágenes</h2>
+    <div id="galeriaCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Primer grupo de imágenes -->
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img src="{% static 'galeriaimg.jpg' %}" class="card-img-top" alt="Galería " />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img src="{% static 'galeriaimg1.jpg' %}" class="card-img-top" alt="Galería 1" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img src="{% static 'galeriaimg3.jpg' %}" class="card-img-top" alt="Galería 3" />
+              </div>
+            </div>
           </div>
         </div>
-        <!-- Repite esta estructura para más imágenes en la galería -->
+        <!-- Segundo grupo de imágenes -->
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img src="{% static 'galeriaimg2.jpg' %}" class="card-img-top" alt="Galería 2" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img src="{% static 'galeriaimg4.jpg' %}" class="card-img-top" alt="Galería 4" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <img src="{% static 'galeriaimg5.jpg' %}" class="card-img-top" alt="Galería 5" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Agregar mas grupos de imagenes -->
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#galeriaCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#galeriaCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
     </div>
-  </section>
+  </div>
+</section>
+
+  
+  
+  
 {% endblock %}

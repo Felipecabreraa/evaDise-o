@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block titulo%} Nosotros {% endblock%}
+
+
+{% block contenido%}  
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Biblioteca - Iniciar sesión</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/path_to_login_handler" method="post">
+                        <div class="form-group">
+                            <label for="username">Usuario:</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

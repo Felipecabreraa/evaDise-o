@@ -35,9 +35,11 @@ def eliminar(request, id):
     libro = Libro.objects.get(id=id)
     libro.delete()
     return redirect('index')
-    return render(request, 'eliminar.html')
 
 def noticia_detalle(request, noticia_id):
     noticia = get_object_or_404(Noticia, pk=noticia_id)
     return render(request, 'noticia_detalle.html', {'noticia': noticia})
+
+def login(request):
+    return render(request,'login.html', {'login':login})
 
