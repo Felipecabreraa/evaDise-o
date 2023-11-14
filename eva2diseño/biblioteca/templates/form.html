@@ -1,39 +1,67 @@
-<form enctype="multipart/form-data" method="post">
-  {% csrf_token %}
-  {% for campo in formulario %}
+{% load static %}
 
-    <div class="mb-3">
-      <label for="" class="form-label">{{campo.label}}</label>
-      <br/>
+<!doctype html>
+<html lang="es">
 
-      {%if campo.field.widget.input_type == 'file' and campo.value %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Editar Información del Libro</title>
+    <!-- Bootstrap CSS y otros recursos CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <!-- Favicon y otros recursos estáticos si los hay -->
+    <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
+</head>
 
-      <img src="{{MEDIA_URL}}/imagenes/{{campo.value}}" width="100" alt=""  srcset="">
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Aquí iría tu barra de navegación -->
+    </nav>
 
-
-      {% endif %}
-
-
-
-
-      <input 
-      type="{{campo.field.widget.input_type}}"
-      class="form-control" 
-      name="{{campo.name}}" 
-      id="" 
-      aria-describedby="helpId" 
-      placeholder="{{campo.label}}"
-      value="{{campo.value | default:""}}"/>
-      
+    <!-- Contenido principal -->
+    <div class="container mt-4">
+        <h2>Editar Información del Libro</h2>
+        <!-- Formulario para editar la información de un libro -->
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% for campo in formulario %}
+                <div class="mb-3">
+                    <label for="id_{{campo.name}}" class="form-label">{{ campo.label }}</label>
+                    {% if campo.field.widget.input_type == 'file' and campo.value %}
+                        <img src="{{ MEDIA_URL }}/imagenes/{{ campo.value }}" width="100" alt="Imagen actual">
+                    {% endif %}
+                    <input 
+                        type="{{ campo.field.widget.input_type }}"
+                        class="form-control {{ campo.errors|yesno:'is-invalid,' }}"
+                        name="{{ campo.name }}"
+                        id="id_{{campo.name}}"
+                        {% if campo.help_text %}aria-describedby="helpId_{{campo.name}}" {% endif %}
+                        placeholder="{{ campo.label }}"
+                        value="{{ campo.value|default_if_none:'' }}"
+                        {% if campo.field.widget.input_type == 'file' %}accept="image/*"{% endif %}>
+                    {% if campo.errors %}
+                        <div id="helpId_{{campo.name}}" class="form-text text-danger">
+                            {{ campo.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <input class="btn btn-primary" type="submit" value="Enviar Información">
+            <a class="btn btn-secondary" href="{% url 'index' %}" role="button">Cancelar</a>
+        </form>
     </div>
-    <div class="col-12 help-text">{{campo.errors}} </div>
 
-  {% endfor %}
-  
-  <input name="" id="" class="btn btn-primary" type="submit" value="Enviar Informacion">
-  <a name="" id="" class="btn btn-primary" href="{%url 'index'%}" role="button">Cancelar</a>
-</form>
+    <!-- Pie de página -->
+    <footer class="text-center py-3">
+        <p>&copy; {% now "Y" %} Biblioteca. Todos los derechos reservados.</p>
+    </footer>
 
+    <!-- Scripts de JavaScript necesarios para Bootstrap y otros comportamientos interactivos -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+</body>
 
-
-
+</html>
