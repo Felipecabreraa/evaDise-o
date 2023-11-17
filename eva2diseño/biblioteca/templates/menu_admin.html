@@ -51,7 +51,7 @@
                   <a class="nav-link text-center text-white" href="/inicio">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-center text-white" href="/index">Gestionar Estilos</a>
+                  <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
@@ -65,23 +65,17 @@
                 <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
               </li>
             {% else %}
-              <!-- Opciones para usuarios no logueados (visitantes) -->
-              <li class="nav-item">
-                <a class="nav-link text-center text-white" href="/login">Iniciar Sesión</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-center text-white" href="/index">Gestionar Estilos</a>
-              </li>
-              <!-- Agrega más opciones para visitantes aquí -->
             {% endif %}
           </ul>
         </div>
       </div>
     </nav>
 
+
     <!-- Contenido principal del panel de administración -->
     <div class="container mt-5">
-      <h1>Panel de Administración</h1>
+      <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
+      <h5>Panel de Administración</h5>
       <p>Bienvenido al panel de administración.</p>
       <div class="admin-options">
         <a href="{% url 'admin:app_list' 'biblioteca' %}" class="btn btn-primary">Gestión de Usuarios</a>

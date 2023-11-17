@@ -19,6 +19,11 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <!-- Aquí iría tu barra de navegación -->
     </nav>
+    
+    <div class="container mt-4">
+        <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
+        <!-- Aquí puedes añadir más contenido específico del usuario -->
+    </div>
 
     <!-- Contenido de la sección Sobre Nosotros -->
     <section class="container mt-5">

@@ -19,7 +19,7 @@ urlpatterns = [
     path('login', views.login, name="login"),
     path('menu_usuario', views.mostrarMenuUsuario, name="menu_usuario"),
     path('menu_admin', views.mostrarMenuAdmin, name="menu_admin"),
-    path('listar_historial', views.mostrarListarHistorial),
+    path('listar_historial', views.mostrarListarHistorial, name="listar_historial"),
 
 
 

@@ -82,7 +82,7 @@ def iniciarSesion(request):
         # debo preguntar si lo encontro o no
         if usuarioValidado:
             # Ya que fue enconytrado, vamos a registrar la accion en el Historial
-            des = "EL USUARIO "+nom+" INCIO SESION"
+            des = "EL USUARIO "+nom+" INICIO SESION"
             tbl = "HISTORIAL"
             fyh = datetime.now()
             idu = usuarioValidado[0]['id']
@@ -92,7 +92,14 @@ def iniciarSesion(request):
             request.session["nomUsuario"] = nom
             request.session["idUsuario"] = idu
             request.session["estadoUsuario"] = True
-            #Preguntare si el usuario es un ADMIN o un usuario NORMAL
+            
+            # Configurar el tipo de usuario en la sesión
+            if nom.upper() == "ADMIN":
+                request.session["tipo_usuario"] = "admin"
+            else:
+                request.session["tipo_usuario"] = "operario"
+            
+            # Redirigir según el tipo de usuario
             if nom.upper() == "ADMIN":
                 return render(request,"menu_admin.html")
             else:
@@ -107,8 +114,7 @@ def iniciarSesion(request):
         # aqui debo enviar un error ya que esta intentando acceder de manera erronea.
         datos = {"error":"La Forma de acceder es incorrecta, debes logearte!"}
         return render(request,"login.html",datos)
-    
-    
+
     
 
 
@@ -143,3 +149,20 @@ def mostrarListarHistorial(request):
                     "error":"Error, debes logearte para acceder a la Plataforma"
         }
         return render(request, "index.html", datos)  
+    
+
+def inicio(request):
+    # Verificar si el usuario ha iniciado sesión
+    if 'nomUsuario' in request.session:
+        nom = request.session['nomUsuario']
+        
+        # Determinar el tipo de usuario (admin o usuario normal)
+        tipo_usuario = "admin" if nom.upper() == "ADMIN" else "OPERADOR"
+        
+        # Almacenar el tipo de usuario en la sesión
+        request.session['tipo_usuario'] = tipo_usuario
+    
+    # Obtener las noticias u otros datos que desees mostrar en la página de inicio
+    noticias = Noticia.objects.all()
+    
+    return render(request, 'inicio.html')

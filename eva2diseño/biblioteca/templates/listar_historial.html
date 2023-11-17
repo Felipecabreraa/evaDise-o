@@ -37,13 +37,18 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link text-center text-white" href="/menu_admin">Inicio</a>
-                        <a class="nav-link text-center text-white" href="/index">Gestionar Estilos</a>
+                        <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
                         <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
 						<a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
         </nav>
+
+        <div class="container mt-4">
+            <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
+            <!-- Aquí puedes añadir más contenido específico del usuario -->
+        </div>
         
         <div style="background-color:#0040A1; padding-top:10px; padding-bottom:10px;">
             <div style="width:80%; background-color:#fff; margin:auto;">

@@ -29,32 +29,56 @@
 </head>
 
 <body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'inicio' %}">Biblioteca</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'index' %}">Gestión de Libros</a>
-            </li>
-            <!-- Aquí puedes agregar más enlaces específicos para el administrador -->
-            <li class="nav-item">
-              <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'inicio' %}">Biblioteca</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <!-- Condición para mostrar opciones específicas si el usuario es admin -->
+        {% if request.session.tipo_usuario == "admin" %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inicio' %}">Gestionar Libros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'listar_historial' %}">Ver Historial</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+          </li>
+
+
+        {% endif %}
+        <!-- Fin de condición -->
+        <!-- Condición para mostrar opciones específicas si el usuario es operario -->
+        {% if request.session.tipo_usuario == "operador" %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'menu_usuario' %}">Perfil</a>
+          </li>
+        {% endif %}
+
+        
+        <!-- Fin de condición -->
+
+        <li class="nav-item">
+          <a class="nav-link text-center text-dark" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
     
 
     <div class="container mt-4">
       <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
-      <p>Esta es tu área de usuario donde puedes gestionar tu perfil, ver tus actividades y más.</p>
       <!-- Aquí puedes añadir más contenido específico del usuario -->
   </div>
 
