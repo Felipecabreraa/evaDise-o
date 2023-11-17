@@ -12,6 +12,20 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Favicon -->
     <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+
+
+    <script>
+      function botonCerrarSesion(event) {
+        // Evita que el enlace siga su ruta por defecto de inmediato
+        event.preventDefault(); 
+    
+        if (confirm("¿Está seguro de que desea cerrar sesión?")) {
+          // Si el usuario confirma, sigue el enlace de cierre de sesión
+          window.location.href = event.currentTarget.href;
+        }
+      }
+    </script>
 </head>
 
 <body>
@@ -30,7 +44,7 @@
             </li>
             <!-- Aquí puedes agregar más enlaces específicos para el administrador -->
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}" onclick="botonCerrarSesion();">Cerrar Sesión</a>
+              <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
             </li>
           </ul>
         </div>

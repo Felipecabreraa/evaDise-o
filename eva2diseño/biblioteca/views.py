@@ -107,3 +107,39 @@ def iniciarSesion(request):
         # aqui debo enviar un error ya que esta intentando acceder de manera erronea.
         datos = {"error":"La Forma de acceder es incorrecta, debes logearte!"}
         return render(request,"login.html",datos)
+    
+    
+    
+
+
+def mostrarListarHistorial(request):
+    try:
+        #Recuperar el valor de las sesiones
+        nom = request.session["nomUsuario"]
+        idu = request.session["idUsuario"]
+        est = request.session["estadoUsuario"]
+        if est is True:    # Pregunto si el usuario esta logeado
+            if nom.upper() == "ADMIN":
+                #historial = Historial.objects.all().values()
+                historial = Historial.objects.select_related('usuario').all().order_by("-fecha_hora_historial")
+                datos = {
+                    "nomUsuario":request.session["nomUsuario"],
+                    "historial":historial
+                }
+                return render(request,"listar_historial.html",datos)
+            else:
+                # si desean eliminen las sesiones creadas
+                datos = {
+                    "error":"Sin Privilegios, no puedes acceder"
+                }      
+                return render(request,"index.html",datos)
+        else:
+            datos = {
+                    "error":"Error de Acceso, debes logearte para acceder a la plataforma"
+            }      
+            return render(request,"index.html",datos)
+    except:
+        datos = {
+                    "error":"Error, debes logearte para acceder a la Plataforma"
+        }
+        return render(request, "index.html", datos)  

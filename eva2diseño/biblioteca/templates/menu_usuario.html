@@ -16,12 +16,17 @@
     <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
 
     <script>
-        function botonCerrarSesion() {
-            if(confirm("¿Está seguro de que desea cerrar sesión?")) {
-                window.location.href = "/logout";
-            }
-        }
-    </script>
+      function botonCerrarSesion(event) {
+          // Evita que el enlace siga su ruta por defecto de inmediato
+          event.preventDefault(); 
+  
+          if (confirm("¿Está seguro de que desea cerrar sesión?")) {
+              // Si el usuario confirma, sigue el enlace de cierre de sesión
+              window.location.href = event.currentTarget.href;
+          }
+      }
+  </script>
+  
   </head>
 
   <body>
@@ -46,8 +51,7 @@
               <a class="nav-link text-center text-white" href="{% url 'menu_usuario' %}">Perfil</a>
             </li>
             <li>
-                <a class="nav-link text-center text-white" href="{%url 'login' %}" onclick="botonCerrarSesion()">Cerrar Sesión</a>
-                
+              <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>                
             </li>
 
 

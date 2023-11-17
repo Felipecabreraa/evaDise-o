@@ -16,12 +16,17 @@
     <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
 
     <script>
-      const botonCerrarSesion = () => {
-        if(window.confirm("¿Está Seguro De Querer Cerrar La Sesión?")){
-          window.location.href = "/logout";
-        }
+      function botonCerrarSesion(event) {
+          // Evita que el enlace siga su ruta por defecto de inmediato
+          event.preventDefault(); 
+  
+          if (confirm("¿Está seguro de que desea cerrar sesión?")) {
+              // Si el usuario confirma, sigue el enlace de cierre de sesión
+              window.location.href = event.currentTarget.href;
+          }
       }
-    </script>
+  </script>
+  
   </head>
 
   <body>
@@ -57,7 +62,7 @@
                 <!-- Agrega opciones para el operador aquí -->
               {% endif %}
               <li class="nav-item">
-                <a class="nav-link text-center text-white" href="login" onClick="botonCerrarSesion()">Cerrar Sesión</a>
+                <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
               </li>
             {% else %}
               <!-- Opciones para usuarios no logueados (visitantes) -->
