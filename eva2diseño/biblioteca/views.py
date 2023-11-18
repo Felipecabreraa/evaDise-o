@@ -81,7 +81,7 @@ def iniciarSesion(request):
         usuarioValidado = Usuario.objects.filter(nombre_usuario=nom, password_usuario=pas).values()
         # debo preguntar si lo encontro o no
         if usuarioValidado:
-            # Ya que fue enconytrado, vamos a registrar la accion en el Historial
+            # Ya que fue encontrado, vamos a registrar la accion en el Historial
             des = "EL USUARIO "+nom+" INICIO SESION"
             tbl = "HISTORIAL"
             fyh = datetime.now()

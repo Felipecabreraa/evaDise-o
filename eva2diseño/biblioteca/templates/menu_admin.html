@@ -34,7 +34,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
       <div class="container-fluid">
         <!-- Logo y nombre de usuario -->
-        <a href="/menu_admin">
+        <a href="{% if request.session.nomUsuario|upper == 'ADMIN' %}/menu_admin{% else %}/menu_usuario{% endif %}">
           <img src="{% static 'perfil_administrador.png' %}" width="50px" style="margin-right:10px;" alt="Logo"/>
         </a>
         {% if request.session.estadoUsuario %}
@@ -45,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav">
             {% if request.session.estadoUsuario %}
-              {% if request.session.nomUsuario|upper == "ADMIN" %}
+              {% if request.session.nomUsuario|upper == 'ADMIN' %}
                 <!-- Opciones específicas del administrador -->
                 <li class="nav-item">
                   <a class="nav-link text-center text-white" href="/inicio">Inicio</a>
@@ -56,21 +56,28 @@
                 <li class="nav-item">
                   <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
                 </li>
-                <!-- Agrega más opciones para el administrador aquí -->
-              {% elif request.session.nomUsuario|upper == "OPERADOR" %}
+              {% elif request.session.nomUsuario|upper == 'OPERADOR' %}
                 <!-- Opciones específicas del operador -->
-                <!-- Agrega opciones para el operador aquí -->
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'inicio' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'menu_usuario' %}">Perfil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
+                </li>
+
+                <!-- Agrega aquí más opciones para el operador -->
               {% endif %}
               <li class="nav-item">
                 <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
               </li>
-            {% else %}
             {% endif %}
           </ul>
         </div>
       </div>
     </nav>
-
 
     <!-- Contenido principal del panel de administración -->
     <div class="container mt-5">

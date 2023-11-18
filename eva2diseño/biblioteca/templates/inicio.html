@@ -31,45 +31,49 @@
 <body>
 
 <!-- Barra de navegación -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'inicio' %}">Biblioteca</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <!-- Logo y nombre de usuario -->
+    <a href="{% if request.session.nomUsuario|upper == 'ADMIN' %}/menu_admin{% else %}/menu_usuario{% endif %}">
+      <img src="{% static 'perfil_administrador.png' %}" width="50px" style="margin-right:10px;" alt="Logo"/>
+    </a>
+    {% if request.session.estadoUsuario %}
+      <span class="navbar-brand text-white">Usuario Logeado: {{ request.session.nomUsuario }}</span>
+    {% endif %}
+
+    <!-- Navegación -->
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
-        </li>
-        <!-- Condición para mostrar opciones específicas si el usuario es admin -->
-        {% if request.session.tipo_usuario == "admin" %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'inicio' %}">Gestionar Libros</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'listar_historial' %}">Ver Historial</a>
-          </li>
+        {% if request.session.estadoUsuario %}
+          {% if request.session.nomUsuario|upper == 'ADMIN' %}
+            <!-- Opciones específicas del administrador -->
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="/inicio">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
+            </li>
+          {% elif request.session.nomUsuario|upper == 'OPERADOR' %}
+            <!-- Opciones específicas del operador -->
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="{% url 'menu_usuario' %}">Perfil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
+            </li>
 
+            <!-- Agrega aquí más opciones para el operador -->
+          {% endif %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
           </li>
-
-
         {% endif %}
-        <!-- Fin de condición -->
-        <!-- Condición para mostrar opciones específicas si el usuario es operario -->
-        {% if request.session.tipo_usuario == "operador" %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'menu_usuario' %}">Perfil</a>
-          </li>
-        {% endif %}
-
-        
-        <!-- Fin de condición -->
-
-        <li class="nav-item">
-          <a class="nav-link text-center text-dark" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
-        </li>
-
       </ul>
     </div>
   </div>
