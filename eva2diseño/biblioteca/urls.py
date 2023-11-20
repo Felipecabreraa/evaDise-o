@@ -20,6 +20,8 @@ urlpatterns = [
     path('menu_usuario', views.mostrarMenuUsuario, name="menu_usuario"),
     path('menu_admin', views.mostrarMenuAdmin, name="menu_admin"),
     path('listar_historial', views.mostrarListarHistorial, name="listar_historial"),
+    path('perfil_operador', views.mostrarperfil_operador, name="perfil_operador"),
+
 
 
 

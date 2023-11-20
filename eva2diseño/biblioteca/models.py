@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 
 # Create your models here.
@@ -38,3 +39,6 @@ class Historial(models.Model):
     tabla_afectada_historial = models.TextField(max_length=100)
     fecha_hora_historial = models.DateTimeField()
    
+   
+
+

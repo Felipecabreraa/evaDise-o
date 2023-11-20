@@ -1,114 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     {% load static %}
     <meta charset="UTF-8"/>
-    <title>Historial</title>
+    <title>Historial - Biblioteca Municipal</title>
     <link rel="icon" href="{% static 'logo.png' %}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.13.1/css/alertify.min.css"/>
+    <!-- Tus estilos personalizados aquí -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
 
-	<script>
-		function botonCerrarSesion(event) {
-			// Evita que el enlace siga su ruta por defecto de inmediato
-			event.preventDefault(); 
-	
-			if (confirm("¿Está seguro de que desea cerrar sesión?")) {
-				// Si el usuario confirma, sigue el enlace de cierre de sesión
-				window.location.href = event.currentTarget.href;
-			}
-		}
-	</script>
-	
+        .navbar {
+            background-color: #004d80;
+            padding: 10px 0;
+        }
+
+        .navbar-brand, .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .table {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .table thead th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-volver {
+            margin-top: 20px;
+        }
+
+        footer {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function botonCerrarSesion(event) {
+            event.preventDefault(); 
+            if (confirm("¿Está seguro de que desea cerrar sesión?")) {
+                window.location.href = event.currentTarget.href;
+            }
+        }
+    </script>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-            <div class="container-fluid">
-              <!-- Logo y nombre de usuario -->
-              <a href="{% if request.session.nomUsuario|upper == 'ADMIN' %}/menu_admin{% else %}/menu_usuario{% endif %}">
-                <img src="{% static 'perfil_administrador.png' %}" width="50px" style="margin-right:10px;" alt="Logo"/>
-              </a>
-              {% if request.session.estadoUsuario %}
-                <span class="navbar-brand text-white">Usuario Logeado: {{ request.session.nomUsuario }}</span>
-              {% endif %}
-      
-              <!-- Navegación -->
-              <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                  {% if request.session.estadoUsuario %}
-                    {% if request.session.nomUsuario|upper == 'ADMIN' %}
-                      <!-- Opciones específicas del administrador -->
-                      <li class="nav-item">
-                        <a class="nav-link text-center text-white" href="/inicio">Inicio</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
-                      </li>
-                    {% elif request.session.nomUsuario|upper == 'OPERADOR' %}
-                      <!-- Opciones específicas del operador -->
-                      <li class="nav-item">
-                        <a class="nav-link text-center text-white" href="{% url 'inicio' %}">Inicio</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-center text-white" href="{% url 'menu_usuario' %}">Perfil</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
-                      </li>
-
-                      <!-- Agrega aquí más opciones para el operador -->
-                    {% endif %}
-                    <li class="nav-item">
-                      <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
-                    </li>
-                  {% endif %}
-                </ul>
-              </div>
-            </div>
-          </nav>
-
-        <div class="container mt-4">
-            <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
-            <!-- Aquí puedes añadir más contenido específico del usuario -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+            <!-- Navegación aquí -->
         </div>
-        
-        <div style="background-color:#0040A1; padding-top:10px; padding-bottom:10px;">
-            <div style="width:80%; background-color:#fff; margin:auto;">
-                <h1 class="text-center">Historial de Acciones de Usuarios</h1>
-                <table class="table table-hover" style="width:95%; margin:auto;">
-                    <thead>
-                        <tr class="text-center">
-                            <th>ID</th>
-                            <th>USUARIO</th>
-                            <th>ACCION</th>
-                            <th>TABLA</th>
-                            <th>FECHA y HORA</th>
+    </nav>
+
+    <div class="container">
+        <div class="text-center">
+            <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
+        </div>
+
+        <div class="text-center btn-volver">
+          <button onclick="confirmarRegreso()" class="btn btn-secondary">Regresar al Menú Admin</button>        
+        </div>
+
+        <div class="table-responsive mt-4">
+            <h2 class="text-center">Historial de Acciones de Usuarios</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>USUARIO</th>
+                        <th>ACCION</th>
+                        <th>TABLA</th>
+                        <th>FECHA y HORA</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for item in historial %}
+                        <tr class="align-middle">
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.usuario.nombre_usuario }}</td>
+                            <td>{{ item.descripcion_historial }}</td>
+                            <td>{{ item.tabla_afectada_historial }}</td>
+                            <td>{{ item.fecha_hora_historial }}</td>
                         </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        {% for item in historial %}
-                            <tr class="align-middle">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.usuario.nombre_usuario }}</td>
-                                <td>{{ item.descripcion_historial }}</td>
-                                <td>{{ item.tabla_afectada_historial }}</td>
-                                <td>{{ item.fecha_hora_historial }}</td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="5">No hay datos en el historial.</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">No hay datos en el historial.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
+    <footer class="text-center">
+        <p>&copy; {% now "Y" %} Biblioteca Municipal. Todos los derechos reservados.</p>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="//cdn.jsdelivr.net/alertifyjs/1.13.1/alertify.min.js"></script>
+
+    <script>
+      function confirmarRegreso() {
+          Swal.fire({
+              title: '¿Estás seguro?',
+              text: "Esto te llevará de vuelta al menú de administrador.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Sí, regresar'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  window.location.href = "{% url 'menu_admin' %}";
+              }
+          });
+      }
+  </script>
+
 </body>
 </html>

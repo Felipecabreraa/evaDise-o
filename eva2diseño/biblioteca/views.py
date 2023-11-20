@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Libro, Noticia, Usuario, Historial
 from .forms import Libroform
+
 from datetime import datetime
 from django.contrib.auth import logout
 from django.shortcuts import redirect
@@ -116,6 +117,9 @@ def iniciarSesion(request):
         return render(request,"login.html",datos)
 
     
+def mostrarperfil_operador(request):
+    return render(request, 'perfil_operador.html')
+
 
 
 def mostrarListarHistorial(request):
@@ -166,3 +170,4 @@ def inicio(request):
     noticias = Noticia.objects.all()
     
     return render(request, 'inicio.html')
+

@@ -12,6 +12,39 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Favicon y otros recursos estáticos si los hay -->
     <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+
+        <style>
+        /* Estilos adicionales */
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: url('{% static "biblioteca-header.jpg" %}') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            padding: 60px 0;
+        }
+
+        .mission-vision {
+            padding: 40px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        footer {
+          background-color: #0056b3; /* Fondo azul oscuro para el footer */
+          color: #fff; /* Texto blanco */
+          padding: 10px;
+          position: fixed; /* Fijar en la parte inferior */
+          bottom: 0;
+          width: 100%;
+      }
+
+      
+    </style>
 </head>
 
 <body>
@@ -47,7 +80,10 @@
                   <a class="nav-link text-center text-white" href="{% url 'inicio' %}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-center text-white" href="{% url 'menu_usuario' %}">Perfil</a>
+                  <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'perfil_operador' %}">Perfil</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
@@ -63,9 +99,13 @@
         </div>
       </div>
     </nav>
-        <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
-        <!-- Aquí puedes añadir más contenido específico del usuario -->
-    </div>
+    
+
+
+    <div class="container mt-4">
+      <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
+      <!-- Aquí puedes añadir más contenido específico del usuario -->
+  </div>
 
     <!-- Contenido de la sección Sobre Nosotros -->
     <section class="container mt-5">

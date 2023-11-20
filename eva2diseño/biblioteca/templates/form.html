@@ -2,28 +2,63 @@
 
 <!doctype html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Editar Información del Libro</title>
-    <!-- Bootstrap CSS y otros recursos CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <!-- Favicon y otros recursos estáticos si los hay -->
     <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .btn-primary:hover {
+            background-color: #004085;
+            border-color: #003474;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #5a6268;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        footer {
+            background-color: #0056b3;
+            color: #fff;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Aquí iría tu barra de navegación -->
+        <!-- Contenido de la barra de navegación -->
     </nav>
 
-    <!-- Contenido principal -->
-    <div class="container mt-4">
+    <div class="container">
         <h2>Editar Información del Libro</h2>
-        <!-- Formulario para editar la información de un libro -->
         <form enctype="multipart/form-data" method="post">
             {% csrf_token %}
             {% for campo in formulario %}
@@ -53,15 +88,10 @@
         </form>
     </div>
 
-    <!-- Pie de página -->
-    <footer class="text-center py-3">
-        <p>&copy; {% now "Y" %} Biblioteca. Todos los derechos reservados.</p>
-    </footer>
 
-    <!-- Scripts de JavaScript necesarios para Bootstrap y otros comportamientos interactivos -->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
 </body>
-
 </html>
