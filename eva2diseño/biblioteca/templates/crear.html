@@ -12,6 +12,22 @@
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <!-- Favicon y otros recursos estáticos si los hay -->
     <link rel="icon" href="{% static 'logo.png' %}" type="image/x-icon">
+
+
+
+
+    <style>
+
+  
+        footer {
+          background-color: #0056b3; /* Fondo azul oscuro para el footer */
+          color: #fff; /* Texto blanco */
+          padding: 10px;
+          position: fixed; /* Fijar en la parte inferior */
+          bottom: 0;
+          width: 100%;
+      }
+    </style>
 </head>
 
 <body>
@@ -32,7 +48,6 @@
                 {% include 'form.html' %}
             </div>
             <div class="card-footer text-muted">
-                Footer
             </div>
         </div>
     </div>

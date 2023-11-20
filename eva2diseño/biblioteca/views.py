@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Libro, Noticia, Usuario, Historial
 from .forms import Libroform
+from django.contrib import messages
+
 
 from datetime import datetime
 from django.contrib.auth import logout
@@ -25,11 +27,11 @@ def cerrarSesion(request):
     # Cerrar la sesión de Django
     logout(request)
 
-    # Redirigir al usuario a la página de inicio de sesión o alguna otra página
+    # Limpiar todos los mensajes
+    list(messages.get_messages(request))
+
+    # Redirigir al usuario a la página de inicio de sesión
     return redirect('login')
-
-
-
 
 def nosotros(request):
     return render(request, 'nosotros.html')
@@ -51,7 +53,11 @@ def crear(request):
     formulario = Libroform(request.POST or None, request.FILES or None)
     if formulario.is_valid():
         formulario.save()
+        messages.success(request, 'Libro creado con éxito.')
         return redirect('index')
+    else:
+        messages.error(request, 'Error al crear el libro.')
+    
     return render(request, 'crear.html', {'formulario': formulario})
 
 def editar(request, id):
@@ -75,48 +81,37 @@ def login(request):
     return render(request,'login.html')
 
 def iniciarSesion(request):
-    # preguntar si estoy accediendo mediante el metodo POST
     if request.method == "POST":
-        nom = request.POST["username"]    # recupere el valor ingresado en la casilla 
-        pas = request.POST["password"]    # recupere el valor ingresado en la casilla 
-        usuarioValidado = Usuario.objects.filter(nombre_usuario=nom, password_usuario=pas).values()
-        # debo preguntar si lo encontro o no
+        nom = request.POST.get("username")
+        pas = request.POST.get("password")
+        usuarioValidado = Usuario.objects.filter(nombre_usuario=nom, password_usuario=pas).first()
+
         if usuarioValidado:
-            # Ya que fue encontrado, vamos a registrar la accion en el Historial
-            des = "EL USUARIO "+nom+" INICIO SESION"
+            # Registro en el Historial
+            des = f"EL USUARIO {nom} INICIÓ SESIÓN"
             tbl = "HISTORIAL"
             fyh = datetime.now()
-            idu = usuarioValidado[0]['id']
-            his = Historial(descripcion_historial=des, tabla_afectada_historial=tbl, fecha_hora_historial=fyh,usuario_id=idu)
+            his = Historial(descripcion_historial=des, tabla_afectada_historial=tbl, fecha_hora_historial=fyh, usuario=usuarioValidado)
             his.save()
-            # Vamos a crear las sesiones para el usuario
+
+            # Creación de sesiones para el usuario
             request.session["nomUsuario"] = nom
-            request.session["idUsuario"] = idu
+            request.session["idUsuario"] = usuarioValidado.id
             request.session["estadoUsuario"] = True
             
-            # Configurar el tipo de usuario en la sesión
-            if nom.upper() == "ADMIN":
-                request.session["tipo_usuario"] = "admin"
-            else:
-                request.session["tipo_usuario"] = "operario"
-            
-            # Redirigir según el tipo de usuario
-            if nom.upper() == "ADMIN":
-                return render(request,"menu_admin.html")
-            else:
-                return render(request,"menu_usuario.html")
+            # Configuración del tipo de usuario en la sesión
+            tipo_usuario = "admin" if nom.upper() == "ADMIN" else "operario"
+            request.session["tipo_usuario"] = tipo_usuario
 
+            # Añadir mensaje de éxito y contexto para redirección
+            messages.success(request, 'Inicio de sesión exitoso.')
+            context = {'redirect_url': 'menu_admin' if tipo_usuario == "admin" else 'menu_usuario'}
+            return render(request, "login.html", context)
         else:
-            # aqui debo enviar un error ya que no fue encontrado el usuario
-            datos = {"error":"El Usuario no existe, intente nuevamente"}
-            return render(request,"login.html",datos)
-
-    else:
-        # aqui debo enviar un error ya que esta intentando acceder de manera erronea.
-        datos = {"error":"La Forma de acceder es incorrecta, debes logearte!"}
-        return render(request,"login.html",datos)
-
+            # Añadir mensaje de error
+            messages.error(request, 'El usuario no existe o la contraseña es incorrecta.')
     
+    return render(request, "login.html")
 def mostrarperfil_operador(request):
     return render(request, 'perfil_operador.html')
 
