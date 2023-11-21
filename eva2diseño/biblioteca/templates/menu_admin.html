@@ -122,16 +122,17 @@
     </nav>
 
     <!-- Contenido principal del panel de administración -->
-    <div class="container mt-5">
+    <div class="container mt-5 text-left">
       <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
       <h5>Panel de Administración</h5>
       <p>Bienvenido al panel de administración.</p>
-      <div class="admin-options">
-        <a href="{% url 'admin:app_list' 'biblioteca' %}" class="btn btn-primary">Gestión de Usuarios</a>
-        <a href="{% url 'login' %}" class="btn btn-secondary">Otra Funcionalidad</a>
-        <!-- Agrega más botones o enlaces según necesites -->
+      <div class="mt-3">
+          <a href="{% url 'perfil_admin' %}" class="btn btn-primary">Mi Perfil</a>
       </div>
     </div>
+  
+  
+  
 
     <!-- Logout Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">

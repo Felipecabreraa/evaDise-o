@@ -112,8 +112,14 @@ def iniciarSesion(request):
             messages.error(request, 'El usuario no existe o la contraseña es incorrecta.')
     
     return render(request, "login.html")
+
+
 def mostrarperfil_operador(request):
     return render(request, 'perfil_operador.html')
+
+
+def mostrarperfil_administrador(request):
+    return render(request, 'perfil_admin.html')
 
 
 

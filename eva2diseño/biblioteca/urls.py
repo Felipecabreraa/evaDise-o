@@ -21,6 +21,8 @@ urlpatterns = [
     path('menu_admin', views.mostrarMenuAdmin, name="menu_admin"),
     path('listar_historial', views.mostrarListarHistorial, name="listar_historial"),
     path('perfil_operador', views.mostrarperfil_operador, name="perfil_operador"),
+    path('perfil_admin', views.mostrarperfil_administrador, name="perfil_admin"),
+
 
 
 
