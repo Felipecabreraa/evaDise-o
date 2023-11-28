@@ -35,6 +35,8 @@
     }
 
     .navbar {
+        background: linear-gradient(45deg, #007bff, #004d80);
+
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave en la barra de navegación */
     }
 
@@ -100,6 +102,14 @@
                 <li class="nav-item">
                   <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'iniciar_prestamo' %}">Iniciar Préstamo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'prestamos_activos' %}">Préstamos Activos</a>
+                </li>
+
               {% elif request.session.nomUsuario|upper == 'OPERADOR' %}
                 <!-- Opciones específicas del operador -->
                 <li class="nav-item">
@@ -112,6 +122,9 @@
                   <a class="nav-link text-center text-white" href="{% url 'perfil_operador' %}">Perfil</a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'prestamos_activos' %}">Préstamos Activos</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
                 </li>
 
@@ -120,6 +133,7 @@
               <li class="nav-item">
                 <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
               </li>
+
             {% endif %}
           </ul>
         </div>

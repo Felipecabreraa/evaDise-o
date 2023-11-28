@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views 
 
 from django.conf import settings
 from django.contrib.staticfiles.urls import static
@@ -22,6 +22,9 @@ urlpatterns = [
     path('listar_historial', views.mostrarListarHistorial, name="listar_historial"),
     path('perfil_operador', views.mostrarperfil_operador, name="perfil_operador"),
     path('perfil_admin', views.mostrarperfil_administrador, name="perfil_admin"),
+    path('iniciar_prestamo/', views.iniciar_prestamo, name='iniciar_prestamo'),
+    path('devolver_libro/<int:prestamo_id>/', views.devolver_libro, name='devolver_libro'),
+    path('prestamos_activos/', views.prestamos_activos, name='prestamos_activos'),
 
 
 

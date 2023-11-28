@@ -1,0 +1,159 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Préstamo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .navbar {
+            background: linear-gradient(45deg, #007bff, #004d80);
+            color: white;
+          }
+
+          
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eaeaea;
+            margin: 0;
+        }
+        .main-container {
+            background-color: #ffffff;
+            margin: 2% auto;
+            padding: 2%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 800px;
+        }
+        .navbar-custom {
+            background-color: #004a99;
+            padding: 0.5rem 1rem;
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+        .header {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .label-bold {
+            font-weight: 600;
+        }
+        .btn-custom {
+            background-color: #0066cc;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container-fluid">
+      <!-- Logo y nombre de usuario -->
+      <a href="{% if request.session.nomUsuario|upper == 'ADMIN' %}/menu_admin{% else %}/menu_usuario{% endif %}">
+        <img src="{% static 'perfil_administrador.png' %}" width="50px" style="margin-right:10px;" alt="Logo"/>
+      </a>
+      {% if request.session.estadoUsuario %}
+        <span class="navbar-brand text-white">Usuario Logeado: {{ request.session.nomUsuario }}</span>
+      {% endif %}
+
+      <!-- Navegación -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          {% if request.session.estadoUsuario %}
+            {% if request.session.nomUsuario|upper == 'ADMIN' %}
+              <!-- Opciones específicas del administrador -->
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="/inicio">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="{% url 'iniciar_prestamo' %}">Iniciar Préstamo</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="{% url 'prestamos_activos' %}">Préstamos Activos</a>
+              </li>
+
+            {% elif request.session.nomUsuario|upper == 'OPERADOR' %}
+              <!-- Opciones específicas del operador -->
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="{% url 'inicio' %}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="/index">Gestionar Libros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="{% url 'perfil_operador' %}">Perfil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="{% url 'prestamos_activos' %}">Préstamos Activos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
+              </li>
+
+              <!-- Agrega aquí más opciones para el operador -->
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
+            </li>
+
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="main-container">
+        <div class="header">
+            <h1>Bienvenido, {{ request.session.nomUsuario }}</h1>
+            <h2>Iniciar Préstamo</h2>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="label-bold" for="{{ form.libros.id_for_label }}">Libros:</label>
+                {{ form.libros }}
+            </div>
+            <div class="form-group">
+                <label class="label-bold" for="{{ form.fecha_devolucion_estimada.id_for_label }}">Fecha de Devolución Estimada:</label>
+                {{ form.fecha_devolucion_estimada }}
+            </div>
+            <button type="submit" class="btn btn-custom">Iniciar Préstamo</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Biblioteca. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

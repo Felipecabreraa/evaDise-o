@@ -36,8 +36,8 @@
       }
 
       .navbar {
-          background-color: #0056b3;
-          color: white;
+        background: linear-gradient(45deg, #007bff, #004d80);
+        color: white;
       }
 
       .navbar-brand, .navbar-nav .nav-link {
@@ -135,20 +135,24 @@
               </thead>
               <tbody>
                 {% for libro in libros %}
-                  <tr>
-                    <td>{{ libro.id }}</td>
-                    <td>{{ libro.titulo }}</td>
-                    <td>
-                      <img src="{{ libro.imagen.url }}" height="100" alt="{{ libro.titulo }}" />
-                    </td>
-                    <td>{{ libro.descripcion }}</td>
-                    <td>
-                      <a class="btn btn-info" href="javascript:void(0)" onclick="confirmarEdicion({{ libro.id }})" role="button">Editar</a>
-                      |
-                      <a class="btn btn-danger" href="javascript:void(0)" onclick="confirmarEliminacion({{ libro.id }})" role="button">Borrar</a>
-                    </td>
-                  </tr>
-                {% endfor %}
+                <tr>
+                  <td>{{ libro.id }}</td>
+                  <td>{{ libro.titulo }}</td>
+                  <td>
+                    <img src="{{ libro.imagen.url }}" height="100" alt="{{ libro.titulo }}" />
+                  </td>
+                  <td>{{ libro.descripcion }}</td>
+                  <td>
+                    <a class="btn btn-info" href="{% url 'editar' libro.id %}" role="button">Editar</a>
+                    |
+                    <a class="btn btn-danger" href="javascript:void(0)" onclick="confirmarEliminacion({{ libro.id }})" role="button">Borrar</a>
+                    |
+                    <!-- Botón de préstamo -->
+                    <a class="btn btn-success" href="{% url 'iniciar_prestamo' %}?libro_id={{ libro.id }}" role="button">Prestar</a>
+                  </td>
+                </tr>
+              {% endfor %}
+              
               </tbody>
             </table>
           </div>

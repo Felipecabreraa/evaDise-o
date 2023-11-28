@@ -36,8 +36,8 @@
     }
 
     .navbar {
-        background-color: #003366; /* Color oscuro para resaltar la importancia del área administrativa */
-        border-bottom: 3px solid #0066cc; /* Borde para separar del contenido */
+      background: linear-gradient(45deg, #007bff, #004d80);
+      border-bottom: 3px solid #0066cc; /* Borde para separar del contenido */
     }
 
     .navbar-brand, .navbar-nav .nav-link {
@@ -95,6 +95,14 @@
                 <li class="nav-item">
                   <a class="nav-link text-center text-white" href="/listar_historial">Ver Historial</a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'iniciar_prestamo' %}">Iniciar Préstamo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'prestamos_activos' %}">Préstamos Activos</a>
+                </li>
+
               {% elif request.session.nomUsuario|upper == 'OPERADOR' %}
                 <!-- Opciones específicas del operador -->
                 <li class="nav-item">
@@ -107,6 +115,9 @@
                   <a class="nav-link text-center text-white" href="{% url 'perfil_operador' %}">Perfil</a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link text-center text-white" href="{% url 'prestamos_activos' %}">Préstamos Activos</a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link text-center text-white" href="{% url 'nosotros' %}">Nosotros</a>
                 </li>
 
@@ -115,6 +126,7 @@
               <li class="nav-item">
                 <a class="nav-link text-center text-white" href="/logout" onclick="botonCerrarSesion(event)">Cerrar Sesión</a>
               </li>
+
             {% endif %}
           </ul>
         </div>

@@ -15,6 +15,10 @@ class Libro(models.Model):
     titulo = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to='imagenes/',verbose_name="Imagen", null=True)
     descripcion =models.TextField(verbose_name="descripcion", null=True)
+    año_publicacion = models.IntegerField(null=True, blank=True)
+    categoria = models.CharField(max_length=100, null=True, blank=True)
+    autor = models.CharField(max_length=100, null=True, blank=True)
+    editorial = models.CharField(max_length=100, null=True, blank=True)
     
     def __str__(self):
         fila = "Titulo: " + self.titulo + " - " + "Descripcion: " + self.descripcion
@@ -38,6 +42,21 @@ class Historial(models.Model):
     descripcion_historial = models.TextField(max_length=200)
     tabla_afectada_historial = models.TextField(max_length=100)
     fecha_hora_historial = models.DateTimeField()
+    
+    
+    
+class Prestamo(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    libros = models.ManyToManyField(Libro)
+    fecha_prestamo = models.DateField(auto_now_add=True)
+    fecha_devolucion_estimada = models.DateField()
+    fecha_devolucion_real = models.DateField(null=True, blank=True)
+    dias_retraso = models.IntegerField(default=0)
+    multa = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+    costo_prestamo = models.DecimalField(max_digits=6, decimal_places=2, default=0.0)
+
+    # Métodos para calcular días de retraso, multa, etc...
+
    
    
 

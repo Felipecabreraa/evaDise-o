@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+from datetime import timedelta
 from django.http import HttpResponse
-from .models import Libro, Noticia, Usuario, Historial
-from .forms import Libroform
+from .models import Libro, Noticia, Usuario, Historial, Prestamo
+from .forms import Libroform, PrestamoForm
 from django.contrib import messages
-
-
 from datetime import datetime
+from datetime import date
+
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
@@ -79,6 +81,9 @@ def noticia_detalle(request, noticia_id):
 
 def login(request):
     return render(request,'login.html')
+
+
+
 
 def iniciarSesion(request):
     if request.method == "POST":
@@ -171,4 +176,81 @@ def inicio(request):
     noticias = Noticia.objects.all()
     
     return render(request, 'inicio.html')
+
+
+def iniciar_prestamo(request):
+    if request.method == 'POST':
+        form = PrestamoForm(request.POST)
+        if form.is_valid():
+            # Obtén los datos del formulario
+            libros = form.cleaned_data['libros']
+            fecha_devolucion_estimada = form.cleaned_data['fecha_devolucion_estimada']
+            
+            # Crea un usuario de prueba o utiliza uno existente
+            usuario, _ = Usuario.objects.get_or_create(nombre_usuario='usuario_prueba')  # Ajusta el nombre de usuario
+            
+            # Crea un nuevo préstamo con los datos
+            prestamo = Prestamo(usuario=usuario, fecha_devolucion_estimada=fecha_devolucion_estimada)
+            prestamo.save()  # Guarda el préstamo en la base de datos
+            prestamo.libros.set(libros)  # Asigna los libros al préstamo
+            
+            return redirect('prestamos_activos')
+    else:
+        form = PrestamoForm()
+    
+    return render(request, 'iniciar_prestamo.html', {'form': form})
+
+
+
+def devolver_libro(request, prestamo_id):
+    prestamo = Prestamo.objects.get(id=prestamo_id)
+    hoy = timezone.now().date()
+
+    if hoy > prestamo.fecha_devolucion_estimada:
+        dias_retraso = (hoy - prestamo.fecha_devolucion_estimada).days
+        prestamo.dias_retraso = dias_retraso
+        prestamo.multa = calcular_multa(dias_retraso)  # Debes definir esta función
+    else:
+        prestamo.dias_retraso = 0
+        prestamo.multa = 0.0
+
+    prestamo.fecha_devolucion_real = hoy
+    prestamo.save()
+
+    # Redirige a la página adecuada después de la devolución
+    return redirect('inicio')
+
+
+
+
+
+
+def calcular_multa(dias_retraso):
+    # Define la lógica para calcular la multa
+    # Por ejemplo, $1.000 por día de retraso:
+    return 1000 * dias_retraso
+
+
+def prestamos_activos(request):
+    # Obtener la fecha actual
+    today = date.today()
+    
+    # Consultar el tipo de usuario almacenado en la sesión
+    tipo_usuario = request.session.get("tipo_usuario", "operador")  # Por defecto, asumimos que es un operador
+    
+    if tipo_usuario == "admin":
+        # Si es un administrador, muestra todos los préstamos activos
+        prestamos_activos = Prestamo.objects.filter(fecha_devolucion_estimada__gte=today).order_by('fecha_devolucion_estimada')
+    elif tipo_usuario == "operador":
+        # Si es un operador, muestra solo los préstamos activos relacionados con su perfil
+        # Asumiendo que hay un campo en Prestamo llamado 'perfil_solicitante' para identificar el perfil del solicitante
+        prestamos_activos = Prestamo.objects.filter(
+            fecha_devolucion_estimada__gte=today,
+            perfil_solicitante=request.session.get("nomUsuario", "")  # Ajusta el campo utilizado para el perfil del solicitante
+        ).order_by('fecha_devolucion_estimada')
+    else:
+        # Tipo de usuario desconocido, maneja la situación adecuadamente
+        prestamos_activos = Prestamo.objects.filter(fecha_devolucion_estimada__gte=today).order_by('fecha_devolucion_estimada')
+    
+    return render(request, 'prestamos_activos.html', {'prestamos_activos': prestamos_activos})
 
